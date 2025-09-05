@@ -10,6 +10,9 @@ export default async function Dashboard() {
   // Fetch count of products
   const { count: productCount } = await supabase.from('products').select('*', { count: 'exact' });
 
+  // Fetch count of sales from stock_moves
+  const { count: salesCount } = await supabase.from('stock_moves').select('*', { count: 'exact' }).eq('kind', 'sale');
+
   return (
     <div className="space-y-6">
       <h1 className="text-3xl font-bold">Dashboard</h1>
@@ -33,7 +36,7 @@ export default async function Dashboard() {
           <ShoppingCart className="h-8 w-8 text-gray-500" />
           <div>
             <p className="text-sm font-medium text-gray-500">Sales</p>
-            <p className="text-2xl font-bold">0</p>
+            <p className="text-2xl font-bold">{salesCount}</p>
           </div>
         </div>
       </div>
